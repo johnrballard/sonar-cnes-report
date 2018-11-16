@@ -103,8 +103,8 @@ public final class StringManager {
             }
         }
 
-        // load internationalized strings, french by default
-        changeLocale("fr","FR");
+        // load internationalized strings, default is defined in the properties file
+        changeLocale(properties.getProperty(DEFAULT_LANGUAGE));
     }
 
     /**
@@ -147,6 +147,15 @@ public final class StringManager {
     }
 
     /**
+     * Change the locale and reload messages
+     * @param language String containing both the language and country, e.g. en_US
+     */
+    public static void changeLocale(String language) {
+        String[] locale = language.split("_");
+        changeLocale(locale[0], locale[1]);
+    }
+
+    /**
      * Return string corresponding to the given key according the locale
      * @param key name of the property in the bundle messages
      * @return a String
@@ -154,4 +163,6 @@ public final class StringManager {
     public static String string(final String key) {
         return messages.getString(key);
     }
+
+
 }
